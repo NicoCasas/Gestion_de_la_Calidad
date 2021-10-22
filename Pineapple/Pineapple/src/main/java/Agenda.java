@@ -44,7 +44,7 @@ public class Agenda implements Interfaz_Agenda, Subject{
     private static final int    N_MEDICOS               =                                           6;
 
 
-    private static final String PATH                    = System.getProperty("user.dir")+ "/data/turnos.txt";
+    private static final String PATH                    = System.getProperty("user.dir") + "/out/data/turnos.txt";
 
     //Campos
     private final List<Turno>   turnos;
@@ -57,9 +57,7 @@ public class Agenda implements Interfaz_Agenda, Subject{
     public Agenda() throws Exception{
         turnos    = new ArrayList<>();
         observers = new ArrayList<>();
-        new File(System.getProperty("user.dir")+ "/data").mkdir();
         file = new File(PATH);
-        file.createNewFile();
         br = new BufferedReader(new FileReader(file));
         levantarTurnos();
     }

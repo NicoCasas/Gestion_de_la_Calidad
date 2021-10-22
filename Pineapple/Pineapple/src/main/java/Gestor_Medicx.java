@@ -33,18 +33,15 @@ public class Gestor_Medicx implements Interfaz_Gestor_Medicx{
     private static final String MATRICULA_MEDICX_KEY    =            "matricula";
     private static final String DNI_MEDIX_KEY           =           "dni medico";
 
-    private static final String PATH                    = System.getProperty("user.dir")+ "/data/medicos.txt";
+    private static final String PATH                    = System.getProperty("user.dir")+ "/out/data/medicos.txt";
 
     private List<Medico> medicos;
     private BufferedReader br;
     private File file;
 
     public Gestor_Medicx() throws Exception{
-        //System.out.println(PATH);
         medicos = new ArrayList<Medico>();
-        new File(System.getProperty("user.dir")+ "/data").mkdir();
         file = new File(PATH);
-        file.createNewFile();
         br = new BufferedReader(new FileReader(file));
         levantarMedicos();
     }

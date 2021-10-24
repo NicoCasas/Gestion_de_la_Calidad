@@ -1,3 +1,5 @@
+def pom_path = "Pineapple/Pineapple/pom.xml"
+
 pipeline {
     agent any
 
@@ -13,14 +15,14 @@ pipeline {
                 git url:'https://github.com/NicoCasas/Gestion_de_la_Calidad.git', branch: 'main'
 
                 // Run Maven on a Unix agent.
-                sh "mvn clean package -DskipTest=True -f Pineapple/Pineapple/pom.xml"
+                sh "mvn clean package -DskipTest=True -f " + pom_path
             }
         }
 
-       /* stage('Test') {
+       stage('Test') {
             steps {
-                sh "mvn test"
+                sh "mvn test -f "  + pom_path
             }
-        }*/
+        }
     }
 }

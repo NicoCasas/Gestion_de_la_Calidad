@@ -10,17 +10,17 @@ pipeline {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/NicoCasas/Gestion_de_la_Calidad/'
+                git url:'https://github.com/NicoCasas/Gestion_de_la_Calidad.git', branch: 'main'
 
                 // Run Maven on a Unix agent.
                 sh "mvn clean package -DskipTest=True -f Pineapple/Pineapple/pom.xml"
             }
         }
 
-        stage('Test') {
+       /* stage('Test') {
             steps {
                 sh "mvn test"
             }
-        }
+        }*/
     }
 }

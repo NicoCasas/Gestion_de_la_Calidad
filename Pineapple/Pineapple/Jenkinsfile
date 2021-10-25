@@ -24,7 +24,7 @@ pipeline {
         // b. Correr CheckStyle sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
         stage('CheckStyle') {
             steps {
-                sh "mvn install checkstyle:checkstyle -f " + pom_path
+                sh "mvn checkstyle:check -f " + pom_path
                 recordIssues tools: ( [checkStyle()])
             }
         }

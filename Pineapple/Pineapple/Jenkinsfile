@@ -5,7 +5,7 @@ pipeline {
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
-        maven "MAVEN_HOME"
+        maven "M3"
     }
 
     stages {
@@ -22,7 +22,7 @@ pipeline {
         }
 
         // b. Correr CheckStyle sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
-        /*stage('CheckStyle') {
+        stage('CheckStyle') {
             steps {
                 sh "mvn checkstyle:check -f " + POM_PATH
                 recordIssues tools: ( [checkStyle()])
@@ -51,7 +51,7 @@ pipeline {
                 sh "mvn com.github.spotbugs:spotbugs-maven-plugin:4.4.2.2:spotbugs -f " + POM_PATH
                 recordIssues tools: ( [spotBugs()])
             }
-        }*/
+        }
     
         // f. Correr las pruebas unitarias. Calculando la cobertura de código. Haga que el build falle cuando alguna prueba no pase o el nivel de cobertura de código baje.
         stage('Pruebas Unitarias') {

@@ -9,7 +9,9 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        
+        // a. Compilación del código fuente. Haga que el “build” falle cuando existan errores de compilación. 
+        stage('Compilación') {
             steps {
                 // Get some code from a GitHub repository
                 git url:'https://github.com/NicoCasas/Gestion_de_la_Calidad.git', branch: 'main'
@@ -19,7 +21,34 @@ pipeline {
             }
         }
 
-       stage('Test') {
+        // b. Correr CheckStyle sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
+        stage('CheckStyle') {
+            steps {
+                sh "mvn install checkstyle:checkstyle -f " + pom_path
+                recordIssues tools: ( [checkStyle()])
+            }
+        }
+
+        // c. Correr PMD sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
+        /*stage('PMD') {
+            steps {
+            }
+        }
+
+        // d. Correr PMD CPD sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
+        stage('PMD CPD') {
+            steps {
+            }
+        }
+
+        // e. Correr FindBugs sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior.
+        stage('FindBugs') {
+            steps {
+            }
+        }*/
+    
+        // f. Correr las pruebas unitarias. Calculando la cobertura de código. Haga que el build falle cuando alguna prueba no pase o el nivel de cobertura de código baje.
+        stage('Pruebas Unitarias') {
             steps {
                 sh "mvn test -f "  + pom_path
             }

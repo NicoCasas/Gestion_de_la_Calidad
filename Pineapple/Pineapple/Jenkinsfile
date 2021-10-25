@@ -32,7 +32,7 @@ pipeline {
         // c. Correr PMD sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
         stage('PMD') {
             steps {
-                sh "mvn pmd:pmd-check -f " + pom_path
+                sh "mvn pmd:aggregate-pmd-check -f " + pom_path
                 recordIssues tools: ( [checkStyle()])
             }
         }
@@ -40,7 +40,7 @@ pipeline {
         // d. Correr PMD CPD sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
         stage('PMD CPD') {
             steps {
-                sh "mvn pmd:cpd-check -f " + pom_path
+                sh "mvn pmd:aggregate-cpd-check -f " + pom_path
                 recordIssues tools: ( [cpd()])
             }
         }

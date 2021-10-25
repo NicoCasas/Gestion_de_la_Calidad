@@ -1,4 +1,4 @@
-def pom_path = "Pineapple/Pineapple/pom.xml"
+def POM_PATH = "Pineapple/Pineapple/pom.xml"
 
 pipeline {
     agent any
@@ -17,14 +17,14 @@ pipeline {
                 git url:'https://github.com/NicoCasas/Gestion_de_la_Calidad.git', branch: 'main'
 
                 // Run Maven on a Unix agent.
-                sh "mvn clean package -DskipTest=True -f " + pom_path
+                sh "mvn clean package -DskipTest=True -Djacoco.skip=true -f " + POM_PATH
             }
         }
 
         // b. Correr CheckStyle sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
-        stage('CheckStyle') {
+        /*stage('CheckStyle') {
             steps {
-                sh "mvn checkstyle:check -f " + pom_path
+                sh "mvn checkstyle:check -f " + POM_PATH
                 recordIssues tools: ( [checkStyle()])
             }
         }
@@ -32,7 +32,7 @@ pipeline {
         // c. Correr PMD sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
         stage('PMD') {
             steps {
-                sh "mvn pmd:aggregate-pmd-check -f " + pom_path
+                sh "mvn pmd:aggregate-pmd-check -f " + POM_PATH
                 recordIssues tools: ( [checkStyle()])
             }
         }
@@ -40,7 +40,7 @@ pipeline {
         // d. Correr PMD CPD sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
         stage('PMD CPD') {
             steps {
-                sh "mvn pmd:aggregate-cpd-check -f " + pom_path
+                sh "mvn pmd:aggregate-cpd-check -f " + POM_PATH
                 recordIssues tools: ( [cpd()])
             }
         }
@@ -48,15 +48,15 @@ pipeline {
         // e. Correr FindBugs sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior.
         stage('FindBugs') {
             steps {
-                sh "mvn com.github.spotbugs:spotbugs-maven-plugin:4.4.2.2:spotbugs -f " + pom_path
+                sh "mvn com.github.spotbugs:spotbugs-maven-plugin:4.4.2.2:spotbugs -f " + POM_PATH
                 recordIssues tools: ( [spotBugs()])
             }
-        }
+        }*/
     
         // f. Correr las pruebas unitarias. Calculando la cobertura de código. Haga que el build falle cuando alguna prueba no pase o el nivel de cobertura de código baje.
         stage('Pruebas Unitarias') {
             steps {
-                sh "mvn test -f "  + pom_path
+                sh "mvn clean verify -f "  + POM_PATH
             }
         }
     }

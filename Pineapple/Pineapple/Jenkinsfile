@@ -48,8 +48,8 @@ pipeline {
         // e. Correr FindBugs sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior.
         stage('FindBugs') {
             steps {
-                sh "mvn spotbugs:spotbugs -f " + pom_path
-                recordIssues tools: ( [findbugs()])
+                sh "mvn com.github.spotbugs:spotbugs-maven-plugin:4.4.2.2:spotbugs -f " + pom_path
+                recordIssues tools: ( [spotBugs()])
             }
         }
     

@@ -38,18 +38,20 @@ pipeline {
         }*/
 
         // d. Correr PMD CPD sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
-        stage('PMD CPD') {
+        /*stage('PMD CPD') {
             steps {
                 sh "mvn pmd:aggregate-cpd-check -f " + pom_path
                 recordIssues tools: ( [cpd()])
             }
-        }
+        }*/
 
         // e. Correr FindBugs sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior.
-        /*stage('FindBugs') {
+        stage('FindBugs') {
             steps {
+                sh "mvn spotbugs:spotbugs -f " + pom_path
+                recordIssues tools: ( [findbugs()])
             }
-        }*/
+        }
     
         // f. Correr las pruebas unitarias. Calculando la cobertura de código. Haga que el build falle cuando alguna prueba no pase o el nivel de cobertura de código baje.
         stage('Pruebas Unitarias') {

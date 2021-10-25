@@ -22,28 +22,28 @@ pipeline {
         }
 
         // b. Correr CheckStyle sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
-        /*('CheckStyle') {
+        ('CheckStyle') {
             steps {
                 sh "mvn checkstyle:check -f " + pom_path
                 recordIssues tools: ( [checkStyle()])
             }
-        }*/
+        }
 
         // c. Correr PMD sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
-        /*stage('PMD') {
+        stage('PMD') {
             steps {
                 sh "mvn pmd:aggregate-pmd-check -f " + pom_path
                 recordIssues tools: ( [checkStyle()])
             }
-        }*/
+        }
 
         // d. Correr PMD CPD sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
-        /*stage('PMD CPD') {
+        stage('PMD CPD') {
             steps {
                 sh "mvn pmd:aggregate-cpd-check -f " + pom_path
                 recordIssues tools: ( [cpd()])
             }
-        }*/
+        }
 
         // e. Correr FindBugs sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior.
         stage('FindBugs') {

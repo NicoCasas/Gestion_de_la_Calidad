@@ -24,12 +24,7 @@ pipeline {
         // b. Correr CheckStyle sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
         stage('CheckStyle') {
             steps {
-                try {
-                    sh "mvn checkstyle:check -f " + POM_PATH
-                }
-                finally {
-                    recordIssues tools: ( [checkStyle()])
-                }
+                sh "mvn checkstyle:check -f " + POM_PATH
             }
         }
 
@@ -38,12 +33,6 @@ pipeline {
             steps {
                 sh "mvn pmd:aggregate-pmd-check -f " + POM_PATH
             }
-
-            post {
-                always {
-                    recordIssues tools: ( [pmdParser()])
-                }
-            }
         }
 
         // d. Correr PMD CPD sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
@@ -51,23 +40,12 @@ pipeline {
             steps {
                 sh "mvn pmd:aggregate-cpd-check -f " + POM_PATH
             }
-
-            post {
-                always {
-                    recordIssues tools: ( [cpd()])
-                }
-            }
         }
 
         // e. Correr FindBugs sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior.
         stage('FindBugs') {
             steps {
                 sh "mvn com.github.spotbugs:spotbugs-maven-plugin:4.4.2.2:spotbugs -f " + POM_PATH
-            }
-            post {
-                always {
-                    recordIssues tools: ( [spotBugs()])
-                }
             }
         }
     
@@ -80,6 +58,8 @@ pipeline {
     }
     post {
         always {
+            recordIssues tools: ( [checkStyle(), pmdParser(), cpd(), spotBugs()])
+
             chuckNorris()
         }
     }

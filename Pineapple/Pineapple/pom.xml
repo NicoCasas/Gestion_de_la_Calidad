@@ -125,7 +125,7 @@
 										<limit>
 											<counter>INSTRUCTION</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.5</minimum>
+											<minimum>0.0</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -150,6 +150,23 @@
 						<!-- <phase>test</phase> -->
 						<goals>
 							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.15.0</version>
+				<configuration>
+					<maxAllowedViolations>100</maxAllowedViolations>
+					<failOnViolation>true</failOnViolation>
+				</configuration>
+				<executions>
+					<execution>
+						<!-- <phase>test</phase> -->
+						<goals>
+							<goal>aggregate-pmd-check</goal>
 						</goals>
 					</execution>
 				</executions>

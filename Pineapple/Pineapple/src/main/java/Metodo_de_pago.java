@@ -1,4 +1,7 @@
-/** Esta interfaz es utilizada para implementar distintas funcionalidades en el metodo de pago
+/**
+ * Esta interfaz es utilizada para implementar distintas funcionalidades en el
+ * metodo de pago
+ * 
  * @author: Pineapple
  * @version: 12/06/2021
  */

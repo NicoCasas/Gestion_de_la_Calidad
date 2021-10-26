@@ -22,7 +22,7 @@ pipeline {
         }
 
         // b. Correr CheckStyle sobre el código fuente. Haga que el “build” falle cuando la cantidad de errores supere la cantidad que había en el “build” anterior. 
-        stage('CheckStyle') {
+        /*stage('CheckStyle') {
             steps {
                 sh "mvn checkstyle:check -f " + POM_PATH
             }
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 sh "mvn clean verify -f "  + POM_PATH
             }
-        }
+        }*/
     }
     post {
         always {

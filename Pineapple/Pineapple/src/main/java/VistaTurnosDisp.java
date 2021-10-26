@@ -24,6 +24,7 @@ public class VistaTurnosDisp extends JFrame implements Observer {
 	private static final String ID_MEDICX_KEY = "id medico";
     private static final String NOMBRE_MEDICX_KEY = "nombre del medico";
     private static final String VALIDO_KEY = "valido";
+    private final Gestor_Medicx gestor;
     private ArrayList<String> id_medicos;
     private final Interfaz_Validacion_Turno validadorTurnos;
     private final Interfaz_Validacion_Medicx validadorMedicxs;
@@ -33,11 +34,12 @@ public class VistaTurnosDisp extends JFrame implements Observer {
     private JScrollPane turnosScrollPane;
 
     public VistaTurnosDisp(String title, Interfaz_Validacion_Turno validadorTurnos,
-            Interfaz_Validacion_Medicx validadorMedicxs, ArrayList<String> id_medicos) {
+            Interfaz_Validacion_Medicx validadorMedicxs, Gestor_Medicx gestor) {
         super(title);
         this.validadorTurnos = validadorTurnos;
         this.validadorMedicxs = validadorMedicxs;
-        this.id_medicos = id_medicos;
+        this.gestor = gestor;
+        this.id_medicos = gestor.getMedicxs_id();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
         titleLabel.setText("TURNOS DISPONIBLES DIA " + dtf.format(now));
@@ -62,7 +64,7 @@ public class VistaTurnosDisp extends JFrame implements Observer {
             for (String id_medico : id_medicos) {
                 JSONObject consult = new JSONObject();
                 consult.put(ID_MEDICX_KEY, id_medico);
-                consult = validadorMedicxs.getNomConID(consult);
+                consult = getNomConID(consult);
                 printInTextPane("Medicx: " + consult.getString(NOMBRE_MEDICX_KEY) + "\n");
                 consult = ja.getJSONObject(Integer.parseInt(id_medico));
                 JSONArray list = consult.getJSONArray(id_medico); // jo.get(id_medicos.get(i));
@@ -74,6 +76,20 @@ public class VistaTurnosDisp extends JFrame implements Observer {
         }
         turnosScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     }
+    
+    public JSONObject getNomConID(JSONObject json_object) {
+		if (!validadorMedicxs.validarID(json_object)) {
+			return ErrNomID();
+		}
+		return gestor.getNomConID(json_object);
+	}
+    
+    private JSONObject ErrNomID() {
+		JSONObject respuesta = new JSONObject();
+		respuesta.put(VALIDO_KEY, "no");
+		respuesta.put("error", "id invalido");
+		return respuesta;
+	}
 
     private void printInTextPane(String s) {
         int len = turnosTextPane.getDocument().getLength();

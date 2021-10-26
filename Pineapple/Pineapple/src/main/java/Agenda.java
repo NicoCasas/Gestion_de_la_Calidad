@@ -395,7 +395,7 @@ public class Agenda implements Interfaz_Agenda, Subject {
             Gestor_Medicx gestor = new Gestor_Medicx();
             Validacion_Medicx validadorMedicxs = new Validacion_Medicx();
             Validacion_Turno validadorTurno = new Validacion_Turno();
-            AgendaGUI agendaGui = new AgendaGUI("My Agenda", validadorTurno, validadorMedicxs, gestor.getMedicxs_id());
+            AgendaGUI agendaGui = new AgendaGUI("My Agenda", validadorTurno, validadorMedicxs, gestor);
             agendaGui.setVisible(true);
 
         } catch (Exception e) {

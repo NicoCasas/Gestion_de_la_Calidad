@@ -1,11 +1,14 @@
 import org.json.*;
 
 public interface Interfaz_Validacion_Medicx {
-    public JSONObject iniciarSesion(JSONObject json_object);
+    
+    boolean validarMatricula(JSONObject json_object);
+    
+    boolean stringSoloCompuestoPorNumeros(String s);
 
-    public JSONObject getNomConID(JSONObject json_object);
-
-    public JSONObject getIDConNom(JSONObject json_object);
-
-    public void crearMedicx(JSONObject json_object);
+    boolean validarNombre(JSONObject json_object);
+    
+    boolean stringSoloCompuestoPorletras(String s);
+    
+    boolean validarID(JSONObject json_object);
 }

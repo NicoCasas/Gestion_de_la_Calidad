@@ -25,7 +25,12 @@ pipeline {
         stage('CheckStyle') {
             steps {
                 sh "mvn checkstyle:check -f " + POM_PATH
-                recordIssues tools: ( [checkStyle()])
+            }
+
+            post {
+                always {
+                    recordIssues tools: ( [checkStyle()])
+                }
             }
         }
 
@@ -33,7 +38,12 @@ pipeline {
         stage('PMD') {
             steps {
                 sh "mvn pmd:aggregate-pmd-check -f " + POM_PATH
-                recordIssues tools: ( [pmdParser()])
+            }
+
+            post {
+                always {
+                    recordIssues tools: ( [pmdParser()])
+                }
             }
         }
 
@@ -41,7 +51,12 @@ pipeline {
         stage('PMD CPD') {
             steps {
                 sh "mvn pmd:aggregate-cpd-check -f " + POM_PATH
-                recordIssues tools: ( [cpd()])
+            }
+
+            post {
+                always {
+                    recordIssues tools: ( [cpd()])
+                }
             }
         }
 
@@ -49,7 +64,11 @@ pipeline {
         stage('FindBugs') {
             steps {
                 sh "mvn com.github.spotbugs:spotbugs-maven-plugin:4.4.2.2:spotbugs -f " + POM_PATH
-                recordIssues tools: ( [spotBugs()])
+            }
+            post {
+                always {
+                    recordIssues tools: ( [spotBugs()])
+                }
             }
         }
     

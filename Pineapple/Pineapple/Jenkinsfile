@@ -27,7 +27,7 @@ pipeline {
                 try {
                     sh "mvn checkstyle:check -f " + POM_PATH
                 }
-                catch {
+                finally {
                     recordIssues tools: ( [checkStyle()])
                 }
             }

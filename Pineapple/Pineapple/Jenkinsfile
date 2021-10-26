@@ -33,7 +33,7 @@ pipeline {
         stage('PMD') {
             steps {
                 sh "mvn pmd:aggregate-pmd-check -f " + POM_PATH
-                recordIssues tools: ( [checkStyle()])
+                recordIssues tools: ( [pmdParser()])
             }
         }
 

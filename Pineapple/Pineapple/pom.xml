@@ -147,7 +147,6 @@
 				</configuration>
 				<executions>
 					<execution>
-						<!-- <phase>test</phase> -->
 						<goals>
 							<goal>check</goal>
 						</goals>
@@ -164,9 +163,9 @@
 				</configuration>
 				<executions>
 					<execution>
-						<!-- <phase>test</phase> -->
 						<goals>
 							<goal>aggregate-pmd-check</goal>
+							<goal>aggregate-cpd-check</goal>
 						</goals>
 					</execution>
 				</executions>

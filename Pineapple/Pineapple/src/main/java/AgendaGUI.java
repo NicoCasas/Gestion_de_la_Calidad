@@ -603,6 +603,12 @@ public class AgendaGUI extends JFrame {
 		crearPanel.setName("crearPanel");
 		sesionPanel.setName("sesionPanel");
 		mainPanel.setName("mainPanel");
+
+		nombrePaciente.setName("nombrePaciente");
+		dniCrear.setName("dniCrear");
+		medicxsBox.setName("medicxsBox");
+		horarioBox.setName("horarioBox");
+		monto.setName("monto");
 	}
 
 	/**

@@ -239,6 +239,10 @@ public class AgendaGUI extends JFrame {
 		this.id_medicos = gestor.getMedicxs_id();
 		this.gestor_medicx = gestor;
 		initGUI();
+		initVariableNames();
+
+		this.setVisible(true);
+
 		goTo(VISTA_PRINCIPAL);
 
 		/*---------------MÉTODOS ACCIÓN BOTONES VISTA PRINCIPAL-----------------*/
@@ -594,6 +598,13 @@ public class AgendaGUI extends JFrame {
 		});
 	}
 
+	private void initVariableNames(){
+		consultaPanel.setName("consultaPanel");
+		crearPanel.setName("crearPanel");
+		sesionPanel.setName("sesionPanel");
+		mainPanel.setName("mainPanel");
+	}
+
 	/**
 	 * Método de seteo de opciones para JComboBox "Horarios:" Consulta los horarios
 	 * disponibles de ese medico y genera el desplegable de opciones
@@ -796,6 +807,7 @@ public class AgendaGUI extends JFrame {
 		ViewPanel = new JPanel();
 		ViewPanel.setLayout(new java.awt.CardLayout(0, 0));
 		mainPanel = new JPanel();
+		mainPanel.setName("mainPanel");
 		mainPanel.setLayout(
 				new com.intellij.uiDesigner.core.GridLayoutManager(1, 3, new java.awt.Insets(0, 0, 0, 0), -1, -1));
 		ViewPanel.add(mainPanel, "Card1");

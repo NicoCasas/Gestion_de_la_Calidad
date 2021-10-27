@@ -49,7 +49,6 @@ public class steps {
     }
     @Then("aparece la ventana para ingresar los datos del turno")
     public void aparece_la_ventana_para_ingresar_los_datos_del_turno() {
-//        assertTrue(window.panel("consultaPanel").isEnabled());
         assertTrue(window.panel("crearPanel").target().isShowing());
 
     }
